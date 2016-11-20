@@ -21,73 +21,90 @@ namespace PilotEdgeParser
       string myTempFileOrig = Path.Combine(Path.GetTempPath(), "pe.txt");
       string myTempFileParsed = Path.Combine(Path.GetTempPath(), "pe_parsed.txt");
       string myTempFileInfo = Path.Combine(Path.GetTempPath(), "pe_info.txt");
-      Client.DownloadFile("http://map.pilotedge.net/vspro.dat", myTempFileOrig);
+      string myTempFilePilots = Path.Combine(Path.GetTempPath(), "pe_pilots.txt");
+      // Client.DownloadFile("http://map.pilotedge.net/vspro.dat", myTempFileOrig);
 
       using (Stream fileStream = File.Open(myTempFileOrig, FileMode.Open))
       using (StreamReader reader = new StreamReader(fileStream))
       {
         using (StreamWriter sw = new StreamWriter(myTempFileParsed))
         {
-
           using (StreamWriter swinfo = new StreamWriter(myTempFileInfo))
           {
-
-            string line = null;
-            int pilot_count = 0;
-            int drone_count = 0;
-            do
+            using (StreamWriter swpilots = new StreamWriter(myTempFilePilots))
             {
-              line = reader.ReadLine();
-              if (line == null)
-              {
-                // there are no more lines; break out of the loop
-                break;
-              }
 
-              string[] parts = line.Split(':');
-              // "CS" in parts[0] 
-              // "Name" in parts[2] 
-              // "ROLE" in parts[3] 
-
-              if (parts.Length > 2)
+              string line = null;
+              int pilot_count = 0;
+              int drone_count = 0;
+              int ifr_pilots = 0;
+              int vfr_pilots = 0;
+              do
               {
-                if (parts[3] == "ATC")
+                line = reader.ReadLine();
+                if (line == null)
                 {
-                  string year = parts[37].Substring(0, 4);
-                  string month = parts[37].Substring(4, 2);
-                  string day = parts[37].Substring(6, 2);
-                  string hour = parts[37].Substring(8, 2);
-                  string minute = parts[37].Substring(10, 2);
-                  string second = parts[37].Substring(12, 2);
-                  string con_string = $"{month}/{day}/{year} {hour}:{minute}:{second}";
-                  DateTime date_obj = Convert.ToDateTime(con_string);
-                  string date_str = date_obj.ToString("MM'/'dd'/'yyyy HH':'mm':'ss");
-                  string row_string = parts[0] + "," + parts[2] + "," + date_str;
-                  sw.WriteLine(row_string);
+                  // there are no more lines; break out of the loop
+                  break;
                 }
 
-                else if (parts[3] == "PILOT")
+                string[] parts = line.Split(':');
+                // "CS" in parts[0] 
+                // "Name" in parts[2] 
+                // "ROLE" in parts[3] 
 
+                if (parts.Length > 2)
                 {
-                  if (parts[2] == "DRONE")
+                  if (parts[3] == "ATC")
                   {
-                    drone_count += 1;
+                    string year = parts[37].Substring(0, 4);
+                    string month = parts[37].Substring(4, 2);
+                    string day = parts[37].Substring(6, 2);
+                    string hour = parts[37].Substring(8, 2);
+                    string minute = parts[37].Substring(10, 2);
+                    string second = parts[37].Substring(12, 2);
+                    string con_string = $"{month}/{day}/{year} {hour}:{minute}:{second}";
+                    DateTime date_obj = Convert.ToDateTime(con_string);
+                    string date_str = date_obj.ToString("MM'/'dd'/'yyyy HH':'mm':'ss");
+                    string row_string = parts[0] + "," + parts[2] + "," + date_str;
+                    sw.WriteLine(row_string);
                   }
-                  else
+
+                  else if (parts[3] == "PILOT")
                   {
-                    pilot_count += 1;
+                    if (parts[2] == "DRONE")
+                    {
+                      drone_count += 1;
+                    }
+                    else
+                    {
+                      pilot_count += 1;
+
+                      string year = parts[37].Substring(0, 4);
+                      string month = parts[37].Substring(4, 2);
+                      string day = parts[37].Substring(6, 2);
+                      string hour = parts[37].Substring(8, 2);
+                      string minute = parts[37].Substring(10, 2);
+                      string second = parts[37].Substring(12, 2);
+                      string con_string = $"{month}/{day}/{year} {hour}:{minute}:{second}";
+                      DateTime date_obj = Convert.ToDateTime(con_string);
+                      string date_str = date_obj.ToString("MM'/'dd'/'yyyy HH':'mm':'ss");
+                      string f_rules = "";
+                      if (parts[21] == "I") { f_rules = "IFR"; ifr_pilots += 1; } else if (parts[21] == "V") { f_rules = "VFR"; vfr_pilots += 1; }
+                      string row_string = $"{parts[0]}, {parts[2]}, {parts[9]}, {parts[11]}, {parts[13]},  {f_rules}, {date_str}";
+                      swpilots.WriteLine(row_string);
+                    }
                   }
                 }
-              }
 
-            } while (true);
+              } while (true);
 
-            swinfo.WriteLine($"Pilots on the network: {pilot_count}");
-            swinfo.WriteLine($"Drones on the network: {drone_count}");
+              swinfo.WriteLine($"Pilots on the network: {pilot_count}");
+              swinfo.WriteLine($"Drones on the network: {drone_count}");
+              swinfo.WriteLine($"IFR flights: {ifr_pilots}; VFR flights: {pilot_count - ifr_pilots}");
+            }
           }
-
         }
-
       }
 
       InitializeComponent();
@@ -105,6 +122,29 @@ namespace PilotEdgeParser
         dt.Rows.Add(x);
       });
       dataGridViewATC.DataSource = dt;
+
+      List<string[]> rows_pilots = File.ReadAllLines(myTempFilePilots).Select(x => x.Split(',')).ToList();
+      DataTable dt_pilots = new DataTable();
+      dt_pilots.Columns.Add("Callsign");
+      dt_pilots.Columns.Add("Name");
+      dt_pilots.Columns.Add("A/C");
+      dt_pilots.Columns.Add("From");
+      dt_pilots.Columns.Add("To");
+      dt_pilots.Columns.Add("Rules");
+      dt_pilots.Columns.Add("Onilne since");
+      rows_pilots.ForEach(x =>
+      {
+        dt_pilots.Rows.Add(x);
+      });
+      dataGridViewPilots.DataSource = dt_pilots;
+      dataGridViewPilots.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+      dataGridViewPilots.Columns[2].Width = 60;
+      dataGridViewPilots.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+      dataGridViewPilots.Columns[3].Width = 60;
+      dataGridViewPilots.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+      dataGridViewPilots.Columns[4].Width = 60;
+      dataGridViewPilots.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+      dataGridViewPilots.Columns[5].Width = 60;
     }
 
     private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -112,6 +152,11 @@ namespace PilotEdgeParser
       string myTempFileInfo = Path.Combine(Path.GetTempPath(), "pe_info.txt");
       TextReader reder = File.OpenText(myTempFileInfo);
       richTextBoxInfo.Text = reder.ReadToEnd();
+    }
+
+    private void webBrowserMap_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+    {
+
     }
   }
 }
