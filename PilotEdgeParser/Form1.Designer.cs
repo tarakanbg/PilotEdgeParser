@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       this.richTextBoxInfo = new System.Windows.Forms.RichTextBox();
       this.dataGridViewATC = new System.Windows.Forms.DataGridView();
@@ -41,6 +41,7 @@
       this.pictureBox1 = new System.Windows.Forms.PictureBox();
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+      this.refreshDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.dataGridViewATC)).BeginInit();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
@@ -124,8 +125,8 @@
       // 
       this.dataGridViewPilots.AllowUserToAddRows = false;
       this.dataGridViewPilots.AllowUserToDeleteRows = false;
-      dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-      this.dataGridViewPilots.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+      dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+      this.dataGridViewPilots.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
       this.dataGridViewPilots.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -177,7 +178,6 @@
       this.gMapControl1.Size = new System.Drawing.Size(712, 365);
       this.gMapControl1.TabIndex = 0;
       this.gMapControl1.Zoom = 6D;
-      this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
       // 
       // pictureBox1
       // 
@@ -196,6 +196,7 @@
       // 
       this.menuStrip1.BackColor = System.Drawing.SystemColors.ButtonFace;
       this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshDataToolStripMenuItem,
             this.toolStripMenuItem1});
       this.menuStrip1.Location = new System.Drawing.Point(0, 0);
       this.menuStrip1.Name = "menuStrip1";
@@ -210,6 +211,13 @@
       this.toolStripMenuItem1.Size = new System.Drawing.Size(52, 20);
       this.toolStripMenuItem1.Text = "About";
       this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+      // 
+      // refreshDataToolStripMenuItem
+      // 
+      this.refreshDataToolStripMenuItem.Name = "refreshDataToolStripMenuItem";
+      this.refreshDataToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+      this.refreshDataToolStripMenuItem.Text = "Refresh Data";
+      this.refreshDataToolStripMenuItem.Click += new System.EventHandler(this.refreshDataToolStripMenuItem_Click);
       // 
       // Form1
       // 
@@ -254,6 +262,7 @@
     private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     private System.Windows.Forms.TabPage tabPage3;
     private GMap.NET.WindowsForms.GMapControl gMapControl1;
+    private System.Windows.Forms.ToolStripMenuItem refreshDataToolStripMenuItem;
   }
 }
 

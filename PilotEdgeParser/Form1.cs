@@ -16,28 +16,31 @@ using GMap.NET.MapProviders;
 
 
 namespace PilotEdgeToolbox
+
 {
   public partial class Form1 : Form
   {
     public Form1()
     {
-      WebClient Client = new WebClient();
-      string myTempFileOrig = Path.Combine(Path.GetTempPath(), "pe.txt");
-      string myTempFileParsed = Path.Combine(Path.GetTempPath(), "pe_parsed.txt");
-      string myTempFileInfo = Path.Combine(Path.GetTempPath(), "pe_info.txt");
-      string myTempFilePilots = Path.Combine(Path.GetTempPath(), "pe_pilots.txt");
-      Client.DownloadFile("http://map.pilotedge.net/vspro.dat", myTempFileOrig);
+      Download_and_Parse_Data();
+      InitializeComponent();
+      populate_data();
+    }
 
-      using (Stream fileStream = File.Open(myTempFileOrig, FileMode.Open))
+    private void Download_and_Parse_Data()
+    {
+      WebClient Client = new WebClient();
+      Client.DownloadFile("http://map.pilotedge.net/vspro.dat", Globals.myTempFileOrig);
+
+      using (Stream fileStream = File.Open(Globals.myTempFileOrig, FileMode.Open))
       using (StreamReader reader = new StreamReader(fileStream))
       {
-        using (StreamWriter sw = new StreamWriter(myTempFileParsed))
+        using (StreamWriter sw = new StreamWriter(Globals.myTempFileParsed))
         {
-          using (StreamWriter swinfo = new StreamWriter(myTempFileInfo))
+          using (StreamWriter swinfo = new StreamWriter(Globals.myTempFileInfo))
           {
-            using (StreamWriter swpilots = new StreamWriter(myTempFilePilots))
+            using (StreamWriter swpilots = new StreamWriter(Globals.myTempFilePilots))
             {
-
               string line = null;
               int pilot_count = 0;
               int drone_count = 0;
@@ -103,6 +106,8 @@ namespace PilotEdgeToolbox
 
               } while (true);
 
+              DateTime modification = File.GetLastWriteTime(Globals.myTempFileOrig);
+              swinfo.WriteLine($"Data updated: {modification} LT");
               swinfo.WriteLine($"Pilots on the network: {pilot_count}");
               swinfo.WriteLine($"Drones on the network: {drone_count}");
               swinfo.WriteLine($"IFR flights: {ifr_pilots}; VFR flights: {pilot_count - ifr_pilots}");
@@ -110,24 +115,49 @@ namespace PilotEdgeToolbox
           }
         }
       }
+    }
 
-      InitializeComponent();
+    private void richTextBox1_TextChanged(object sender, EventArgs e)
+    {
+    }
 
-      TextReader reder = File.OpenText(myTempFileInfo);
-      richTextBoxInfo.Text = reder.ReadToEnd();
+    private void toolStripMenuItem1_Click(object sender, EventArgs e)
+    {
+      AboutBox1 a = new AboutBox1();
+      a.Show();
+    }
 
-      List<string[]> rows = File.ReadAllLines(myTempFileParsed).Select(x => x.Split(',')).ToList();
+    private void populate_data()
+    {
+      richTextBoxInfo_poplate();
+      dataGridViewATC_populate();
+      dataGridViewPilots_populate();
+      gMapControl1_populate();
+    }
+
+    private void richTextBoxInfo_poplate()
+    {
+      string info = File.ReadAllText(Globals.myTempFileInfo);
+      richTextBoxInfo.Text = info;
+    }
+
+    private void dataGridViewATC_populate()
+    {
+      List<string[]> rows = File.ReadAllLines(Globals.myTempFileParsed).Select(x => x.Split(',')).ToList();
       DataTable dt = new DataTable();
       dt.Columns.Add("Callsign");
       dt.Columns.Add("Name");
-      dt.Columns.Add("Onilne since");
+      dt.Columns.Add("Onilne since (z)");
       rows.ForEach(x =>
       {
         dt.Rows.Add(x);
       });
       dataGridViewATC.DataSource = dt;
+    }
 
-      List<string[]> rows_pilots = File.ReadAllLines(myTempFilePilots).Select(x => x.Split(',')).ToList();
+    private void dataGridViewPilots_populate()
+    {
+      List<string[]> rows_pilots = File.ReadAllLines(Globals.myTempFilePilots).Select(x => x.Split(',')).ToList();
       DataTable dt_pilots = new DataTable();
       dt_pilots.Columns.Add("Callsign");
       dt_pilots.Columns.Add("Name");
@@ -135,7 +165,7 @@ namespace PilotEdgeToolbox
       dt_pilots.Columns.Add("From");
       dt_pilots.Columns.Add("To");
       dt_pilots.Columns.Add("Rules");
-      dt_pilots.Columns.Add("Onilne since");
+      dt_pilots.Columns.Add("Onilne since (z)");
       dt_pilots.Columns.Add("Lat");
       dt_pilots.Columns.Add("Lon");
       rows_pilots.ForEach(x =>
@@ -155,20 +185,7 @@ namespace PilotEdgeToolbox
       dataGridViewPilots.Columns[8].Visible = false;
     }
 
-    private void richTextBox1_TextChanged(object sender, EventArgs e)
-    {
-      string myTempFileInfo = Path.Combine(Path.GetTempPath(), "pe_info.txt");
-      TextReader reder = File.OpenText(myTempFileInfo);
-      richTextBoxInfo.Text = reder.ReadToEnd();
-    }
-
-    private void toolStripMenuItem1_Click(object sender, EventArgs e)
-    {
-      AboutBox1 a = new AboutBox1();
-      a.Show();
-    }
-
-    private void gMapControl1_Load(object sender, EventArgs e)
+    private void gMapControl1_populate()
     {
       gMapControl1.MapProvider = BingMapProvider.Instance;
       GMaps.Instance.Mode = AccessMode.ServerOnly;
@@ -197,5 +214,19 @@ namespace PilotEdgeToolbox
       });
       gMapControl1.Overlays.Add(markers);
     }
+
+    private void refreshDataToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Download_and_Parse_Data();
+      populate_data();
+    }
+  }
+
+  public static class Globals
+  {
+    public static String myTempFileOrig = Path.Combine(Path.GetTempPath(), "pe.txt");
+    public static String myTempFileParsed = Path.Combine(Path.GetTempPath(), "pe_parsed.txt");
+    public static String myTempFileInfo = Path.Combine(Path.GetTempPath(), "pe_info.txt");
+    public static String myTempFilePilots = Path.Combine(Path.GetTempPath(), "pe_pilots.txt");
   }
 }
