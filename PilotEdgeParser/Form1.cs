@@ -11,7 +11,7 @@ using System.Net;
 using System.IO;
 
 
-namespace PilotEdgeParser
+namespace PilotEdgeToolbox
 {
   public partial class Form1 : Form
   {
@@ -164,7 +164,8 @@ namespace PilotEdgeParser
     {
       gMapControl1.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
       GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
-      gMapControl1.Position = new GMap.NET.PointLatLng(48.8589507, 2.2775175);
+      gMapControl1.Position = new GMap.NET.PointLatLng(35.4057297, -117.2676734);
+      gMapControl1.ShowCenter = false;
     }
   }
 }

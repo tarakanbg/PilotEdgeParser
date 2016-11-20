@@ -1,4 +1,4 @@
-﻿namespace PilotEdgeParser
+﻿namespace PilotEdgeToolbox
 {
   partial class AboutBox1
   {
