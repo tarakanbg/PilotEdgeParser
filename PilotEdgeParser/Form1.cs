@@ -22,7 +22,7 @@ namespace PilotEdgeParser
       string myTempFileParsed = Path.Combine(Path.GetTempPath(), "pe_parsed.txt");
       string myTempFileInfo = Path.Combine(Path.GetTempPath(), "pe_info.txt");
       string myTempFilePilots = Path.Combine(Path.GetTempPath(), "pe_pilots.txt");
-      Client.DownloadFile("http://map.pilotedge.net/vspro.dat", myTempFileOrig);
+      // Client.DownloadFile("http://map.pilotedge.net/vspro.dat", myTempFileOrig);
 
       using (Stream fileStream = File.Open(myTempFileOrig, FileMode.Open))
       using (StreamReader reader = new StreamReader(fileStream))
@@ -154,9 +154,17 @@ namespace PilotEdgeParser
       richTextBoxInfo.Text = reder.ReadToEnd();
     }
 
-    private void webBrowserMap_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+    private void toolStripMenuItem1_Click(object sender, EventArgs e)
     {
+      AboutBox1 a = new AboutBox1();
+      a.Show();
+    }
 
+    private void gMapControl1_Load(object sender, EventArgs e)
+    {
+      gMapControl1.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
+      GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+      gMapControl1.Position = new GMap.NET.PointLatLng(48.8589507, 2.2775175);
     }
   }
 }

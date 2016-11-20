@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       this.richTextBoxInfo = new System.Windows.Forms.RichTextBox();
       this.dataGridViewATC = new System.Windows.Forms.DataGridView();
@@ -37,12 +37,18 @@
       this.tabPage2 = new System.Windows.Forms.TabPage();
       this.dataGridViewPilots = new System.Windows.Forms.DataGridView();
       this.pictureBox1 = new System.Windows.Forms.PictureBox();
+      this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+      this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+      this.tabPage3 = new System.Windows.Forms.TabPage();
+      this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
       ((System.ComponentModel.ISupportInitialize)(this.dataGridViewATC)).BeginInit();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.tabPage2.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPilots)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+      this.menuStrip1.SuspendLayout();
+      this.tabPage3.SuspendLayout();
       this.SuspendLayout();
       // 
       // richTextBoxInfo
@@ -85,6 +91,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tabControl1.Controls.Add(this.tabPage1);
       this.tabControl1.Controls.Add(this.tabPage2);
+      this.tabControl1.Controls.Add(this.tabPage3);
       this.tabControl1.Location = new System.Drawing.Point(12, 4);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
@@ -117,8 +124,8 @@
       // 
       this.dataGridViewPilots.AllowUserToAddRows = false;
       this.dataGridViewPilots.AllowUserToDeleteRows = false;
-      dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-      this.dataGridViewPilots.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+      dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+      this.dataGridViewPilots.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
       this.dataGridViewPilots.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -146,17 +153,79 @@
       this.pictureBox1.TabIndex = 3;
       this.pictureBox1.TabStop = false;
       // 
+      // menuStrip1
+      // 
+      this.menuStrip1.BackColor = System.Drawing.SystemColors.ButtonFace;
+      this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+      this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+      this.menuStrip1.Location = new System.Drawing.Point(685, 4);
+      this.menuStrip1.Name = "menuStrip1";
+      this.menuStrip1.Size = new System.Drawing.Size(60, 24);
+      this.menuStrip1.TabIndex = 2;
+      this.menuStrip1.Text = "menuStrip1";
+      // 
+      // toolStripMenuItem1
+      // 
+      this.toolStripMenuItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+      this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+      this.toolStripMenuItem1.Size = new System.Drawing.Size(52, 20);
+      this.toolStripMenuItem1.Text = "About";
+      this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+      // 
+      // tabPage3
+      // 
+      this.tabPage3.Controls.Add(this.gMapControl1);
+      this.tabPage3.Location = new System.Drawing.Point(4, 29);
+      this.tabPage3.Name = "tabPage3";
+      this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+      this.tabPage3.Size = new System.Drawing.Size(724, 357);
+      this.tabPage3.TabIndex = 2;
+      this.tabPage3.Text = "Map";
+      this.tabPage3.UseVisualStyleBackColor = true;
+      // 
+      // gMapControl1
+      // 
+      this.gMapControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.gMapControl1.Bearing = 0F;
+      this.gMapControl1.CanDragMap = true;
+      this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
+      this.gMapControl1.GrayScaleMode = true;
+      this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+      this.gMapControl1.LevelsKeepInMemmory = 5;
+      this.gMapControl1.Location = new System.Drawing.Point(6, 6);
+      this.gMapControl1.MarkersEnabled = true;
+      this.gMapControl1.MaxZoom = 18;
+      this.gMapControl1.MinZoom = 2;
+      this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+      this.gMapControl1.Name = "gMapControl1";
+      this.gMapControl1.NegativeMode = false;
+      this.gMapControl1.PolygonsEnabled = true;
+      this.gMapControl1.RetryLoadTile = 0;
+      this.gMapControl1.RoutesEnabled = true;
+      this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+      this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+      this.gMapControl1.ShowTileGridLines = false;
+      this.gMapControl1.Size = new System.Drawing.Size(712, 345);
+      this.gMapControl1.TabIndex = 0;
+      this.gMapControl1.Zoom = 13D;
+      this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.SystemColors.Control;
       this.ClientSize = new System.Drawing.Size(756, 498);
+      this.Controls.Add(this.menuStrip1);
       this.Controls.Add(this.pictureBox1);
       this.Controls.Add(this.richTextBoxInfo);
       this.Controls.Add(this.tabControl1);
       this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+      this.MainMenuStrip = this.menuStrip1;
       this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
       this.Name = "Form1";
       this.Text = "Pilotedge Who\'s Online";
@@ -166,6 +235,9 @@
       this.tabPage2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPilots)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+      this.menuStrip1.ResumeLayout(false);
+      this.menuStrip1.PerformLayout();
+      this.tabPage3.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -180,6 +252,10 @@
     private System.Windows.Forms.TabPage tabPage2;
     private System.Windows.Forms.DataGridView dataGridViewPilots;
     private System.Windows.Forms.PictureBox pictureBox1;
+    private System.Windows.Forms.MenuStrip menuStrip1;
+    private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+    private System.Windows.Forms.TabPage tabPage3;
+    private GMap.NET.WindowsForms.GMapControl gMapControl1;
   }
 }
 
