@@ -22,7 +22,7 @@ namespace PilotEdgeParser
       string myTempFileParsed = Path.Combine(Path.GetTempPath(), "pe_parsed.txt");
       string myTempFileInfo = Path.Combine(Path.GetTempPath(), "pe_info.txt");
       string myTempFilePilots = Path.Combine(Path.GetTempPath(), "pe_pilots.txt");
-      // Client.DownloadFile("http://map.pilotedge.net/vspro.dat", myTempFileOrig);
+      Client.DownloadFile("http://map.pilotedge.net/vspro.dat", myTempFileOrig);
 
       using (Stream fileStream = File.Open(myTempFileOrig, FileMode.Open))
       using (StreamReader reader = new StreamReader(fileStream))
