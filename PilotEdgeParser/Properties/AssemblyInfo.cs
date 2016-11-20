@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PilotEdgeParser")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Pilotedge Toolbox")]
+[assembly: AssemblyDescription("A simple who's online monitor for the Pilotedge Toolbox")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PilotEdgeParser")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyProduct("Pilotedge Toolbox")]
+[assembly: AssemblyCopyright("Copyright ©  2016, Svilen Vassilev")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

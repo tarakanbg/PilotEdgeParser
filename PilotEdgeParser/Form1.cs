@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using GMap.NET;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using GMap.NET.MapProviders;
 
 
 namespace PilotEdgeToolbox
@@ -22,7 +26,7 @@ namespace PilotEdgeToolbox
       string myTempFileParsed = Path.Combine(Path.GetTempPath(), "pe_parsed.txt");
       string myTempFileInfo = Path.Combine(Path.GetTempPath(), "pe_info.txt");
       string myTempFilePilots = Path.Combine(Path.GetTempPath(), "pe_pilots.txt");
-      // Client.DownloadFile("http://map.pilotedge.net/vspro.dat", myTempFileOrig);
+      Client.DownloadFile("http://map.pilotedge.net/vspro.dat", myTempFileOrig);
 
       using (Stream fileStream = File.Open(myTempFileOrig, FileMode.Open))
       using (StreamReader reader = new StreamReader(fileStream))
@@ -91,7 +95,7 @@ namespace PilotEdgeToolbox
                       string date_str = date_obj.ToString("MM'/'dd'/'yyyy HH':'mm':'ss");
                       string f_rules = "";
                       if (parts[21] == "I") { f_rules = "IFR"; ifr_pilots += 1; } else if (parts[21] == "V") { f_rules = "VFR"; vfr_pilots += 1; }
-                      string row_string = $"{parts[0]}, {parts[2]}, {parts[9]}, {parts[11]}, {parts[13]},  {f_rules}, {date_str}";
+                      string row_string = $"{parts[0]}, {parts[2]}, {parts[9]}, {parts[11]}, {parts[13]},  {f_rules}, {date_str}, {parts[5]}, {parts[6]}";
                       swpilots.WriteLine(row_string);
                     }
                   }
@@ -132,6 +136,8 @@ namespace PilotEdgeToolbox
       dt_pilots.Columns.Add("To");
       dt_pilots.Columns.Add("Rules");
       dt_pilots.Columns.Add("Onilne since");
+      dt_pilots.Columns.Add("Lat");
+      dt_pilots.Columns.Add("Lon");
       rows_pilots.ForEach(x =>
       {
         dt_pilots.Rows.Add(x);
@@ -145,6 +151,8 @@ namespace PilotEdgeToolbox
       dataGridViewPilots.Columns[4].Width = 60;
       dataGridViewPilots.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
       dataGridViewPilots.Columns[5].Width = 60;
+      dataGridViewPilots.Columns[7].Visible = false;
+      dataGridViewPilots.Columns[8].Visible = false;
     }
 
     private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -162,10 +170,32 @@ namespace PilotEdgeToolbox
 
     private void gMapControl1_Load(object sender, EventArgs e)
     {
-      gMapControl1.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
-      GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
-      gMapControl1.Position = new GMap.NET.PointLatLng(35.4057297, -117.2676734);
+      gMapControl1.MapProvider = BingMapProvider.Instance;
+      GMaps.Instance.Mode = AccessMode.ServerOnly;
+      gMapControl1.Position = new PointLatLng(35.4057297, -117.2676734);
       gMapControl1.ShowCenter = false;
+
+      GMapOverlay markers = new GMapOverlay("markers");
+      string myTempFilePilots = Path.Combine(Path.GetTempPath(), "pe_pilots.txt");
+      List<string[]> rows = File.ReadAllLines(myTempFilePilots).Select(x => x.Split(',')).ToList();
+      rows.ForEach(x =>
+      {
+        if (x[5].Trim() == "IFR")
+        {
+          GMapMarker marker = new GMarkerGoogle(new PointLatLng(Double.Parse(x[7]), Double.Parse(x[8])), GMarkerGoogleType.blue_small);
+          string tooltip_string = $"{x[0].Trim()}\n{x[1].Trim()}\n{x[2].Trim()}\n{x[3].Trim()}-{x[4].Trim()}";
+          marker.ToolTipText = tooltip_string;
+          markers.Markers.Add(marker);
+        }
+        else
+        {
+          GMapMarker marker = new GMarkerGoogle(new PointLatLng(Double.Parse(x[7]), Double.Parse(x[8])), GMarkerGoogleType.green_small);
+          string tooltip_string = $"{x[0].Trim()}\n{x[1].Trim()}\n{x[2].Trim()}\n{x[3].Trim()}-{x[4].Trim()}";
+          marker.ToolTipText = tooltip_string;
+          markers.Markers.Add(marker);
+        }
+      });
+      gMapControl1.Overlays.Add(markers);
     }
   }
 }

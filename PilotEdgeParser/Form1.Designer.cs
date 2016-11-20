@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       this.richTextBoxInfo = new System.Windows.Forms.RichTextBox();
       this.dataGridViewATC = new System.Windows.Forms.DataGridView();
@@ -55,7 +55,7 @@
       // 
       this.richTextBoxInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.richTextBoxInfo.Location = new System.Drawing.Point(12, 396);
+      this.richTextBoxInfo.Location = new System.Drawing.Point(12, 439);
       this.richTextBoxInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
       this.richTextBoxInfo.Name = "richTextBoxInfo";
       this.richTextBoxInfo.ReadOnly = true;
@@ -81,7 +81,7 @@
       this.dataGridViewATC.Name = "dataGridViewATC";
       this.dataGridViewATC.ReadOnly = true;
       this.dataGridViewATC.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-      this.dataGridViewATC.Size = new System.Drawing.Size(714, 347);
+      this.dataGridViewATC.Size = new System.Drawing.Size(714, 367);
       this.dataGridViewATC.TabIndex = 1;
       // 
       // tabControl1
@@ -92,10 +92,10 @@
       this.tabControl1.Controls.Add(this.tabPage1);
       this.tabControl1.Controls.Add(this.tabPage2);
       this.tabControl1.Controls.Add(this.tabPage3);
-      this.tabControl1.Location = new System.Drawing.Point(12, 4);
+      this.tabControl1.Location = new System.Drawing.Point(12, 27);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
-      this.tabControl1.Size = new System.Drawing.Size(732, 390);
+      this.tabControl1.Size = new System.Drawing.Size(732, 410);
       this.tabControl1.TabIndex = 2;
       // 
       // tabPage1
@@ -105,7 +105,7 @@
       this.tabPage1.Location = new System.Drawing.Point(4, 29);
       this.tabPage1.Name = "tabPage1";
       this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage1.Size = new System.Drawing.Size(724, 357);
+      this.tabPage1.Size = new System.Drawing.Size(724, 377);
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "Controllers";
       // 
@@ -115,7 +115,7 @@
       this.tabPage2.Location = new System.Drawing.Point(4, 29);
       this.tabPage2.Name = "tabPage2";
       this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage2.Size = new System.Drawing.Size(724, 357);
+      this.tabPage2.Size = new System.Drawing.Size(724, 377);
       this.tabPage2.TabIndex = 1;
       this.tabPage2.Text = "Pilots";
       this.tabPage2.UseVisualStyleBackColor = true;
@@ -124,8 +124,8 @@
       // 
       this.dataGridViewPilots.AllowUserToAddRows = false;
       this.dataGridViewPilots.AllowUserToDeleteRows = false;
-      dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-      this.dataGridViewPilots.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+      dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+      this.dataGridViewPilots.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
       this.dataGridViewPilots.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -136,7 +136,7 @@
       this.dataGridViewPilots.Name = "dataGridViewPilots";
       this.dataGridViewPilots.ReadOnly = true;
       this.dataGridViewPilots.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.dataGridViewPilots.Size = new System.Drawing.Size(712, 345);
+      this.dataGridViewPilots.Size = new System.Drawing.Size(712, 365);
       this.dataGridViewPilots.TabIndex = 0;
       // 
       // tabPage3
@@ -145,7 +145,7 @@
       this.tabPage3.Location = new System.Drawing.Point(4, 29);
       this.tabPage3.Name = "tabPage3";
       this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPage3.Size = new System.Drawing.Size(724, 357);
+      this.tabPage3.Size = new System.Drawing.Size(724, 377);
       this.tabPage3.TabIndex = 2;
       this.tabPage3.Text = "Map";
       this.tabPage3.UseVisualStyleBackColor = true;
@@ -174,19 +174,18 @@
       this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
       this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
       this.gMapControl1.ShowTileGridLines = false;
-      this.gMapControl1.Size = new System.Drawing.Size(712, 345);
+      this.gMapControl1.Size = new System.Drawing.Size(712, 365);
       this.gMapControl1.TabIndex = 0;
       this.gMapControl1.Zoom = 6D;
       this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
       // 
       // pictureBox1
       // 
-      this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+      this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
       this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
       this.pictureBox1.InitialImage = null;
-      this.pictureBox1.Location = new System.Drawing.Point(501, 396);
+      this.pictureBox1.Location = new System.Drawing.Point(501, 439);
       this.pictureBox1.Name = "pictureBox1";
       this.pictureBox1.Size = new System.Drawing.Size(239, 97);
       this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -196,12 +195,11 @@
       // menuStrip1
       // 
       this.menuStrip1.BackColor = System.Drawing.SystemColors.ButtonFace;
-      this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
       this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
-      this.menuStrip1.Location = new System.Drawing.Point(685, 4);
+      this.menuStrip1.Location = new System.Drawing.Point(0, 0);
       this.menuStrip1.Name = "menuStrip1";
-      this.menuStrip1.Size = new System.Drawing.Size(60, 24);
+      this.menuStrip1.Size = new System.Drawing.Size(756, 24);
       this.menuStrip1.TabIndex = 2;
       this.menuStrip1.Text = "menuStrip1";
       // 
@@ -218,7 +216,7 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.SystemColors.Control;
-      this.ClientSize = new System.Drawing.Size(756, 498);
+      this.ClientSize = new System.Drawing.Size(756, 541);
       this.Controls.Add(this.menuStrip1);
       this.Controls.Add(this.pictureBox1);
       this.Controls.Add(this.richTextBoxInfo);
@@ -228,7 +226,7 @@
       this.MainMenuStrip = this.menuStrip1;
       this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
       this.Name = "Form1";
-      this.Text = "Pilotedge Who\'s Online";
+      this.Text = "Pilotedge Toolbox";
       ((System.ComponentModel.ISupportInitialize)(this.dataGridViewATC)).EndInit();
       this.tabControl1.ResumeLayout(false);
       this.tabPage1.ResumeLayout(false);
